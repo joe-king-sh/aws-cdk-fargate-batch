@@ -6,8 +6,8 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-aws-cdk = "*"
-aws-cdk-core = "*"
+aws-cdk-aws-ecr = "*"
+aws-cdk-aws-ec2 = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3"
