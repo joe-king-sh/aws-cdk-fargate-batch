@@ -8,6 +8,10 @@ verify_ssl = true
 [packages]
 aws-cdk-aws-ecr = "*"
 aws-cdk-aws-ec2 = "*"
+aws-cdk-aws-ecs = "*"
+aws-cdk-aws-logs = "*"
+aws-cdk-aws-events = "*"
+aws-cdk-aws-events-targets = "*"
 
 [requires]
 python_version = "3"

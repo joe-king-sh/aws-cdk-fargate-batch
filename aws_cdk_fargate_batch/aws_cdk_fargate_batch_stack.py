@@ -1,6 +1,11 @@
 from aws_cdk import core
 from aws_cdk import aws_ecr
 from aws_cdk import aws_ec2
+from aws_cdk import aws_ecs
+from aws_cdk import aws_logs
+from aws_cdk import aws_events
+from aws_cdk import aws_events_targets
+
 
 class AwsCdkFargateBatchStack(core.Stack):
 
@@ -31,60 +36,57 @@ class AwsCdkFargateBatchStack(core.Stack):
         # ====================================
         # ECS
         # ====================================
-        # クラスターの作成
+        # Create ecs cluester.
         ecs_cluster = aws_ecs.Cluster(
             self,
-            id='ecs_cluster,
-            cluster_name='sample_cluester_name',
+            id='ecs_cluster',
+            cluster_name='sample_fargate_batch_cluster',
             vpc=vpc
         )
 
-        # Fargeteのタスク定義の作成
-        fargate_task_definition = ecs.FargateTaskDefinition(
+        # Create fargate task definition.
+        fargate_task_definition = aws_ecs.FargateTaskDefinition(
             self,
-            id=utility.create_name(project_name, 'task-def'),
+            id='fargate-task-definition',
             cpu=256,
             memory_limit_mib=512,
-            family=utility.create_name(project_name, 'task-def')
+            family='fargate-task-definition'
         )
 
-        # タスク定義にコンテナイメージを登録する
+        # Add container to task definition.
         fargate_task_definition.add_container(
-            id=utility.create_name(project_name, 'container-image'),
-            image=ecs.ContainerImage.from_ecr_repository(ecr_repository),
-            logging=ecs.LogDriver.aws_logs(
+            id='container',
+            image=aws_ecs.ContainerImage.from_ecr_repository(ecr_repository),
+            logging=aws_ecs.LogDriver.aws_logs(
                 stream_prefix='ecs',
-                log_group=logs.LogGroup(
+                log_group=aws_logs.LogGroup(
                     self,
-                    id=utility.create_name(project_name, 'log-group'),
-                    log_group_name='/ecs/fargate/{}'.format(project_name)
+                    id='log-group',
+                    log_group_name='/ecs/fargate/fargate-batch'
                 )
             )
-            # environment
         )
 
-        # 定期実行するようにイベントに紐付ける
-        rule = events.Rule(
+        # Create cloud watch event rule.
+        rule = aws_events.Rule(
             self,
-            id=utility.create_name(project_name, 'rule'),
-            rule_name=utility.create_name(project_name, 'execute-task-rule'),
-            description='Event rule for using in {} project to execute ecs task.'.format(project_name),
-            schedule=events.Schedule.cron(
+            id='rule',
+            rule_name='execute-task-rule',
+            description='Event rule to execute ecs task.',
+            schedule=aws_events.Schedule.cron(
                 day=None,
                 hour=None,
-                minute='*/5',
+                minute='*/5', # execute by every 5 minutes.
                 month=None,
                 week_day=None,
-                year='1970'
+                year=None
             )
         )
 
         rule.add_target(
-            target=targets.EcsTask(
+            target=aws_events_targets.EcsTask(
                 cluster=ecs_cluster,
                 task_definition=fargate_task_definition,
-                task_count=1,
-                security_group=sg_lambda,  # やることはLambdaと同じなので同じSGをつける
-                subnet_selection=ec2.SubnetSelection(subnets=private_subnets)
+                task_count=1
             )
         )

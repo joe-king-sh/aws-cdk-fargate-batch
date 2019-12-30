@@ -31,3 +31,8 @@ Repository for building python batches running on Fargate with AWS CDK.
     $ pipenv run install -d
     ```
 
+### Deployment
+
+```bash
+cdk deploy
+```
