@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.7
+    commands:
+      - |
+        echo instaling packages..
+
+        python3 -m pip install pipenv
+        npm install -g aws-cdk
+        pipenv install
+
+  build:
+    commands:
+      - |
+        echo translating into cloudformation..
+
+        cdk synth
+
+artifacts:
+  base-directory: cdk.out
+  files: '**/*'

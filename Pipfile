@@ -12,6 +12,11 @@ aws-cdk-aws-ecs = "*"
 aws-cdk-aws-logs = "*"
 aws-cdk-aws-events = "*"
 aws-cdk-aws-events-targets = "*"
+aws-cdk-aws-codepipeline-actions = "*"
+aws-cdk-aws-codepipeline = "*"
+aws-cdk-aws-codebuild = "*"
+aws-cdk-app-delivery = "*"
+boto3 = "*"
 
 [requires]
 python_version = "3"
