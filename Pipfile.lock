@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "90f325411702b2819c9705d2e0d49ed02b62843bcada16aea347868e63a99fe5"
+            "sha256": "2f49e8b48fcfadfde18b8ebe88cfe8ae7ec5a496c95f52265a0a91915e1bd597"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -89,6 +89,13 @@
         "aws-cdk-aws-logs": {
             "hashes": [
                 "sha256:43c7770da1a4e3727388e6f483d8cb1c0d1444146ae3bb5d699e8b2287d13b42"
+            ],
+            "index": "pypi",
+            "version": "==1.24.0"
+        },
+        "aws-cdk-core": {
+            "hashes": [
+                "sha256:2d2c83747c6d588809fe401506d3f035c3935d47bd51200c3fdef6949ca7d1b3"
             ],
             "index": "pypi",
             "version": "==1.24.0"
