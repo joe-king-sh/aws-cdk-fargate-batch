@@ -6,7 +6,7 @@ phases:
       python: 3.7
     commands:
       - |
-        echo instaling packages..
+        echo Instaling packages started..
 
         python3 -m pip install pipenv
         npm install -g aws-cdk
@@ -15,8 +15,11 @@ phases:
   build:
     commands:
       - |
-        echo translating into cloudformation..
+        echo Launching virtual environments started..
+        export VENV_HOME_DIR=$(pipenv --venv)
+        . $VENV_HOME_DIR/bin/activate
 
+        echo Translating into cloudformation started..
         cdk synth
 
 artifacts:
