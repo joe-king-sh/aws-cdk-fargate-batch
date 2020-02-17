@@ -20,7 +20,7 @@ phases:
         . $VENV_HOME_DIR/bin/activate
 
         echo Translating into cloudformation started..
-        cdk synth
+        cdk synth aws-cdk-fargate-batch
 
 artifacts:
   base-directory: cdk.out
