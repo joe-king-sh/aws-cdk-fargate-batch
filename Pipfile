@@ -18,6 +18,7 @@ aws-cdk-aws-codebuild = "*"
 aws-cdk-app-delivery = "*"
 boto3 = "*"
 aws-cdk-core = "*"
+aws-cdk-aws-iam = "*"
 
 [requires]
 python_version = "3"

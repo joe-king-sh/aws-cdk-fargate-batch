@@ -1,4 +1,5 @@
 from aws_cdk import core
+from aws_cdk import aws_iam
 from aws_cdk import app_delivery
 from aws_cdk import aws_codebuild
 from aws_cdk import aws_codecommit
@@ -54,6 +55,14 @@ class ContinuousDeliveryStack(core.Stack):
             id='sample_build_project',
             project_name='sample_build_project_name'
         )
+
+        # Add policies to code build role to allow access to the Parameter store.
+        project.add_to_role_policy(
+            aws_iam.PolicyStatement(
+                resources=['*'],
+                actions=['ssm:GetParameters']
+            )
+        )
         
         # Add build stage to my pipeline.
         build_output = aws_codepipeline.Artifact('build_output')
@@ -79,7 +88,7 @@ class ContinuousDeliveryStack(core.Stack):
                     stack=deploy_stack,
                     input=build_output,
                     admin_permissions=True,
-                    change_set_name='change_set_name'
+                    change_set_name='sample-change-set'
                 )
             ]
         )

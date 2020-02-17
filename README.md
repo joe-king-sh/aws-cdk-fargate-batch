@@ -33,6 +33,14 @@ Repository for building python batches running on Fargate with AWS CDK.
 
 ### Deployment
 
+#### Deploy CodePipelineStack
+
 ```bash
-cdk deploy
+cdk deploy continuous-delivery
 ```
+#### Deploy FargateBatchStqck
+
+Deploy automatically using codepipeline.
+
+## Reference
+[AWS-CDK app_delivery](https://docs.aws.amazon.com/cdk/api/latest/python/aws_cdk.app_delivery.README.html)
