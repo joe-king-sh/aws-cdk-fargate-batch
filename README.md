@@ -44,3 +44,6 @@ Deploy automatically using codepipeline.
 
 ## Reference
 [AWS-CDK app_delivery](https://docs.aws.amazon.com/cdk/api/latest/python/aws_cdk.app_delivery.README.html)
+
+## Link
+[AWS CDKをデプロイするCodepipelineをCDK(Python)で構築する](https://qiita.com/joe-king-sh/items/fbd6e185632adf75a1a3)
